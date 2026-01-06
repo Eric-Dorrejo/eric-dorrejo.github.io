@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eric Dorrejo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="loading">
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero animate-on-scroll">
+            <h1>Erick Dorrejo</h1>
+            <p class="hero-tagline">
+                Un <strong>arquitecto</strong> con más de veinte años de experiencia en el sector público y privado.
+            </p>
+        </section>
+
+        <!-- Main Image Section -->
+        <section class="video-section animate-on-scroll">
+            <div class="video-container">
+                <img src="erick-dorrejo.jpeg" alt="Erick Dorrejo" class="main-image">
+            </div>
+        </section>
+
+        <!-- Introduction -->
+        <section class="intro animate-on-scroll">
+            <p>
+                Erick Dorrejo es arquitecto egresado de la <strong>Universidad Nacional Pedro Henríquez Ureña</strong> (2000), con especialidad en Administración de la Construcción (2002) por parte de <strong>INTEC</strong> y con estudios avanzados de Doctorado por parte de la <strong>Universidad Politécnica de Madrid</strong> (2011). Con más de veinte años de experiencia proveyendo asistencia y trabajando con el gobierno nacional, los Ayuntamientos, el sector privado, organizaciones de la sociedad civil y entidades de cooperación internacional.
+            </p>
+        </section>
+
+        <!-- Capabilities Section -->
+        <section class="capabilities animate-on-scroll">
+            <h2>Servicios</h2>
+
+            <div class="cards-grid">
+                <!-- Card 1: Movilidad Urbana -->
+                <div class="card card-mint animate-on-scroll">
+                    <h3>Movilidad Urbana</h3>
+                    <p>Planes de movilidad sostenible, diseño de sistemas de transporte público y estudios de impacto vial.</p>
+                </div>
+
+                <!-- Card 2: Ordenamiento Territorial -->
+                <div class="card card-lime animate-on-scroll">
+                    <h3>Ordenamiento Territorial</h3>
+                    <p>Elaboración de Planes de Ordenamiento Territorial (POT) conforme a la Ley 368-22, con enfoques participativos y cumpliendo lineamientos nacionales.</p>
+                </div>
+
+                <!-- Card 3: Desarrollo Regional -->
+                <div class="card card-coral animate-on-scroll">
+                    <h3>Desarrollo Regional</h3>
+                    <p>Políticas de desarrollo fronterizo, zonas especiales y programas de integración binacional.</p>
+                </div>
+
+                <!-- Card 4: Gestión Municipal -->
+                <div class="card card-blue animate-on-scroll">
+                    <h3>Gestión Municipal</h3>
+                    <p>Modernización de catastro, gestión de suelo y proyectos urbanos con enfoque en sostenibilidad y participación comunitaria.</p>
+                </div>
+
+                <!-- Card 5: Planificación Estratégica -->
+                <div class="card card-periwinkle animate-on-scroll">
+                    <h3>Planificación Estratégica</h3>
+                    <p>Planes maestros de desarrollo para ciudades y regiones bajo la Ley 345-22 de Regiones Únicas.</p>
+                </div>
+
+                <!-- Card 6: Consultoría Internacional -->
+                <div class="card card-purple animate-on-scroll">
+                    <h3>Consultoría Internacional</h3>
+                    <p>Asesoría técnica para organismos multilaterales, ONG y empresas extranjeras que buscan entender el marco regulatorio dominicano.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact animate-on-scroll">
+            <h2>Trabajemos juntos</h2>
+            <p>¿Tienes un proyecto en mente? Me encantaría conocerlo.</p>
+            <a href="mailto:erickdorrejo@gmail.com" class="contact-btn">Contáctame</a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Erick Dorrejo <span class="wave">👋</span></p>
+            <div class="footer-links">
+                <a href="https://www.linkedin.com/in/erick-dorrejo-medina-159287193/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="mailto:erickdorrejo@gmail.com">Email</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Animation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Page load animation
+            setTimeout(() => {
+                document.body.classList.remove('loading');
+                document.body.classList.add('loaded');
+            }, 100);
+
+            // Scroll animations
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
+
+            // Parallax effect for image and cards
+            const videoContainer = document.querySelector('.video-container');
+            const videoSection = document.querySelector('.video-section');
+            const cards = document.querySelectorAll('.card');
+
+            let ticking = false;
+
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        const windowHeight = window.innerHeight;
+
+                        // Image parallax
+                        if (videoContainer && videoSection) {
+                            const rect = videoSection.getBoundingClientRect();
+                            const sectionCenter = rect.top + rect.height / 2;
+                            const viewportCenter = windowHeight / 2;
+
+                            const progress = (windowHeight - rect.top) / (windowHeight + rect.height);
+                            const clampedProgress = Math.max(0, Math.min(1, progress));
+
+                            const scale = 0.85 + (clampedProgress * 0.15);
+                            const parallaxY = (sectionCenter - viewportCenter) * 0.1;
+
+                            videoContainer.style.transform = `scale(${scale}) translateY(${parallaxY}px)`;
+                        }
+
+                        // Cards parallax - each card moves at slightly different speed
+                        cards.forEach((card, index) => {
+                            const rect = card.getBoundingClientRect();
+                            const cardCenter = rect.top + rect.height / 2;
+                            const viewportCenter = windowHeight / 2;
+
+                            // Different parallax speeds for each card
+                            const speed = 0.03 + (index % 3) * 0.02;
+                            const parallaxY = (cardCenter - viewportCenter) * speed;
+
+                            // Scale effect based on visibility
+                            const progress = (windowHeight - rect.top) / (windowHeight + rect.height);
+                            const clampedProgress = Math.max(0, Math.min(1, progress));
+                            const scale = 0.95 + (clampedProgress * 0.05);
+
+                            card.style.transform = `translateY(${parallaxY}px) scale(${scale})`;
+                        });
+
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
