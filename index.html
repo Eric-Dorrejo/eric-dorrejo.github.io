@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eric Dorrejo</title>
+    <title>Erick Dorrejo</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,56 +40,60 @@
             <h2>Servicios</h2>
 
             <div class="cards-grid">
-                <!-- Card 1: Movilidad Urbana -->
-                <div class="card card-mint animate-on-scroll">
-                    <h3>Movilidad Urbana</h3>
-                    <p>Planes de movilidad sostenible, diseño de sistemas de transporte público y estudios de impacto vial.</p>
+                <!-- Row 1: 35% / 65% -->
+                <div class="cards-row">
+                    <div class="card card-mint animate-on-scroll">
+                        <h3>Movilidad Urbana</h3>
+                        <p>Planes de movilidad sostenible y estudios de impacto vial.</p>
+                    </div>
+                    <div class="card card-lime animate-on-scroll">
+                        <h3>Ordenamiento Territorial</h3>
+                        <p>Elaboración de Planes de Ordenamiento Territorial conforme a la Ley 368-22.</p>
+                    </div>
                 </div>
 
-                <!-- Card 2: Ordenamiento Territorial -->
-                <div class="card card-lime animate-on-scroll">
-                    <h3>Ordenamiento Territorial</h3>
-                    <p>Elaboración de Planes de Ordenamiento Territorial (POT) conforme a la Ley 368-22, con enfoques participativos y cumpliendo lineamientos nacionales.</p>
+                <!-- Row 2: 50% / 50% -->
+                <div class="cards-row">
+                    <div class="card card-coral animate-on-scroll">
+                        <h3>Desarrollo Regional</h3>
+                        <p>Políticas de desarrollo fronterizo y programas de integración binacional.</p>
+                    </div>
+                    <div class="card card-blue animate-on-scroll">
+                        <h3>Gestión Municipal</h3>
+                        <p>Modernización de catastro y proyectos urbanos sostenibles.</p>
+                    </div>
                 </div>
 
-                <!-- Card 3: Desarrollo Regional -->
-                <div class="card card-coral animate-on-scroll">
-                    <h3>Desarrollo Regional</h3>
-                    <p>Políticas de desarrollo fronterizo, zonas especiales y programas de integración binacional.</p>
-                </div>
-
-                <!-- Card 4: Gestión Municipal -->
-                <div class="card card-blue animate-on-scroll">
-                    <h3>Gestión Municipal</h3>
-                    <p>Modernización de catastro, gestión de suelo y proyectos urbanos con enfoque en sostenibilidad y participación comunitaria.</p>
-                </div>
-
-                <!-- Card 5: Planificación Estratégica -->
-                <div class="card card-periwinkle animate-on-scroll">
-                    <h3>Planificación Estratégica</h3>
-                    <p>Planes maestros de desarrollo para ciudades y regiones bajo la Ley 345-22 de Regiones Únicas.</p>
-                </div>
-
-                <!-- Card 6: Consultoría Internacional -->
-                <div class="card card-purple animate-on-scroll">
-                    <h3>Consultoría Internacional</h3>
-                    <p>Asesoría técnica para organismos multilaterales, ONG y empresas extranjeras que buscan entender el marco regulatorio dominicano.</p>
+                <!-- Row 3: 60% / 40% -->
+                <div class="cards-row">
+                    <div class="card card-periwinkle animate-on-scroll">
+                        <h3>Planificación Estratégica</h3>
+                        <p>Planes maestros de desarrollo bajo la Ley 345-22 de Regiones Únicas.</p>
+                    </div>
+                    <div class="card card-purple animate-on-scroll">
+                        <h3>Consultoría</h3>
+                        <p>Asesoría para organismos internacionales y sector privado.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Contact Section -->
-        <section class="contact animate-on-scroll">
-            <h2>Trabajemos juntos</h2>
-            <p>¿Tienes un proyecto en mente? Me encantaría conocerlo.</p>
-            <a href="mailto:erickdorrejo@gmail.com" class="contact-btn">Contáctame</a>
+        <section class="contact-section animate-on-scroll">
+            <div class="contact-content">
+                <p class="contact-intro">
+                    Si buscas un aliado estratégico para proyectos de movilidad urbana, ordenamiento territorial o desarrollo regional, me encantaría conversar. Encuéntrame en <a href="https://www.linkedin.com/in/erick-dorrejo-medina-159287193/" target="_blank" rel="noopener noreferrer">LinkedIn</a> o escríbeme un <a href="mailto:erickdorrejo@gmail.com">email</a>.
+                </p>
+                <p class="contact-closing">Espero tu mensaje,</p>
+                <img src="signature.svg" alt="Erick Dorrejo" class="signature">
+            </div>
         </section>
     </main>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
-            <p>&copy; 2025 Erick Dorrejo <span class="wave">👋</span></p>
+            <p>&copy; <span id="year"></span> Erick Dorrejo</p>
             <div class="footer-links">
                 <a href="https://www.linkedin.com/in/erick-dorrejo-medina-159287193/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                 <a href="mailto:erickdorrejo@gmail.com">Email</a>
@@ -99,13 +104,16 @@
     <!-- Animation Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Set current year
+            document.getElementById('year').textContent = new Date().getFullYear();
+
             // Page load animation
             setTimeout(() => {
                 document.body.classList.remove('loading');
                 document.body.classList.add('loaded');
             }, 100);
 
-            // Scroll animations
+            // Scroll animations with Intersection Observer only
             const animatedElements = document.querySelectorAll('.animate-on-scroll');
 
             const observer = new IntersectionObserver((entries) => {
@@ -123,56 +131,43 @@
                 observer.observe(element);
             });
 
-            // Parallax effect for image and cards
+            // Smooth parallax for image only (GPU accelerated)
             const videoContainer = document.querySelector('.video-container');
             const videoSection = document.querySelector('.video-section');
-            const cards = document.querySelectorAll('.card');
 
-            let ticking = false;
+            let lastScrollY = window.scrollY;
+            let scheduledAnimationFrame = false;
 
-            window.addEventListener('scroll', function() {
-                if (!ticking) {
-                    window.requestAnimationFrame(function() {
-                        const windowHeight = window.innerHeight;
+            function updateParallax() {
+                if (videoContainer && videoSection) {
+                    const rect = videoSection.getBoundingClientRect();
+                    const windowHeight = window.innerHeight;
 
-                        // Image parallax
-                        if (videoContainer && videoSection) {
-                            const rect = videoSection.getBoundingClientRect();
-                            const sectionCenter = rect.top + rect.height / 2;
-                            const viewportCenter = windowHeight / 2;
+                    // Only calculate if section is in view
+                    if (rect.bottom > 0 && rect.top < windowHeight) {
+                        const progress = (windowHeight - rect.top) / (windowHeight + rect.height);
+                        const clampedProgress = Math.max(0, Math.min(1, progress));
+                        const scale = 0.88 + (clampedProgress * 0.12);
 
-                            const progress = (windowHeight - rect.top) / (windowHeight + rect.height);
-                            const clampedProgress = Math.max(0, Math.min(1, progress));
-
-                            const scale = 0.85 + (clampedProgress * 0.15);
-                            const parallaxY = (sectionCenter - viewportCenter) * 0.1;
-
-                            videoContainer.style.transform = `scale(${scale}) translateY(${parallaxY}px)`;
-                        }
-
-                        // Cards parallax - each card moves at slightly different speed
-                        cards.forEach((card, index) => {
-                            const rect = card.getBoundingClientRect();
-                            const cardCenter = rect.top + rect.height / 2;
-                            const viewportCenter = windowHeight / 2;
-
-                            // Different parallax speeds for each card
-                            const speed = 0.03 + (index % 3) * 0.02;
-                            const parallaxY = (cardCenter - viewportCenter) * speed;
-
-                            // Scale effect based on visibility
-                            const progress = (windowHeight - rect.top) / (windowHeight + rect.height);
-                            const clampedProgress = Math.max(0, Math.min(1, progress));
-                            const scale = 0.95 + (clampedProgress * 0.05);
-
-                            card.style.transform = `translateY(${parallaxY}px) scale(${scale})`;
-                        });
-
-                        ticking = false;
-                    });
-                    ticking = true;
+                        // Use translate3d for GPU acceleration
+                        videoContainer.style.transform = `translate3d(0, 0, 0) scale(${scale})`;
+                    }
                 }
-            });
+                scheduledAnimationFrame = false;
+            }
+
+            function onScroll() {
+                lastScrollY = window.scrollY;
+                if (!scheduledAnimationFrame) {
+                    scheduledAnimationFrame = true;
+                    requestAnimationFrame(updateParallax);
+                }
+            }
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+
+            // Initial call
+            updateParallax();
         });
     </script>
 </body>
